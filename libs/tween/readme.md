@@ -1,0 +1,15 @@
+tween常用动画：
+Linear:线性匀速运动效果
+Quadratic:二次方的缓慢（T^2）
+Cubic:三次方的缓动（t^3)
+Quartic:四次方缓动（T^4)
+Quintic:五次方缓动（t^5)
+sinusoidal:正弦曲线的缓动（sin(t))
+exponential:指数曲线的换的缓动
+circular:圆形曲线的缓动（sqrt(1-t^2)）
+elastic:指数衰减的正弦曲线缓动
+back:超出范围的三次方欢动（（s+1）*t-s*t^2）
+bounce:指数衰减的反弹缓动
+In(先慢后快）
+Out（先快后慢）
+InOut(先慢后快在慢)

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+</head>
+<body>
+<script src="//p2.ifengimg.com/auto/js/2018/0930/pixi.min.js"></script>
+<script src="//p3.ifengimg.com/auto/js/2018/0930/dragonBones.js"></script>
+<script>
+//    var armature = armatureDisplay._armature;
+//    var tmpslot = armature.getSlot("head");
+//    var texture = PIXI.Texture.fromImage("./img/body.png");
+//    tmpslot.display.texture = texture;
+var winW=window.innerWidth;
+var winH=window.innerHeight;
+    // 搭建舞台
+    var app = new PIXI.Application(winW, winH, {
+        backgroundColor: 0x1099bb
+    });
+    app.renderer.autoResize=true;
+    document.body.appendChild(app.view);
+    //预加载资源
+    PIXI.loader.reset();
+    PIXI.loader
+        .add("dragonBonesData", "//p0.ifengimg.com/auto/custom/dragon/Bicycle_ske.json")
+        .add("textureData", "//p2.ifengimg.com/auto/custom/dragon/Bicycle_tex.json")
+        .add("texture", "//p0.ifengimg.com/auto/custom/dragon/Bicycle_tex.png");
+    PIXI.loader.once("complete", onComplete, this);
+    PIXI.loader.load();
+    //加载成功
+    function onComplete(target, resource) {
+        var textureImg = resource["texture"].texture;
+        var textureData = resource["textureData"].data;
+        var skeletonData = resource["dragonBonesData"].data;
+//        //骨骼动画实现
+        var dragonbonesFactory = new dragonBones.PixiFactory(); //新建骨骼动画制作工厂
+        dragonbonesFactory.parseDragonBonesData(skeletonData); //解析骨骼数据
+        dragonbonesFactory.parseTextureAtlasData(textureData, textureImg); //解析纹理数据
+        var armatureDisplay = dragonbonesFactory.buildArmatureDisplay(skeletonData.armature[0].name); //构建骨骼动画
+        armatureDisplay.animation.play('bicycle'); //执行动画：骑车动作
+        armatureDisplay.x = 220;
+        armatureDisplay.y = 500;
+        armatureDisplay.scale.set(0.3, 0.3);
+        app.stage.addChild(armatureDisplay);
+    }
+
+</script>
+</body>
+</html>

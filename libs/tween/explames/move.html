@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./js/Tween.js"></script>
+    <script src="./js/three.js"></script>
+</head>
+<body>
+<div id='box' style="background-color: #008800;width:100px;height:100px;"></div>
+<script>
+    //设置动画
+    function animate(time){
+        requestAnimationFrame(animate);
+        TWEEN.update(time)
+
+    }
+    animate();
+    var box=document.getElementById('box');
+    console.log(box.style)
+    //
+    var coords={x:0,y:0}
+    var tween=new TWEEN.Tween(coords)
+        .to({x:300,y:200},1000)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onUpdate(function(){
+            box.style.setProperty('transform','translate('+coords.x+'px,'+coords.y+'px)')
+        })
+        .start();
+
+
+</script>
+
+
+</body>
+</html>
